@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import axios from "axios"
 
 const NoteForm = ({
+  BASE_URL,
   notes, 
   setAllNotes, 
   noteId, 
@@ -32,7 +33,7 @@ const NoteForm = ({
       try {
        
         const { data } = await axios.patch(
-          `/api/notes/${noteId}`,
+          `${BASE_URL}/api/notes/${noteId}`,
           editedNotedetails,
         );
         let updatedNotes = notes.filter((t) => t._id !== data?.updatedNote?._id);
@@ -68,7 +69,7 @@ const NoteForm = ({
                 title,
                 desc,
             }
-            const { data } = await axios.post('/api/notes', payload)
+            const { data } = await axios.post(`${BASE_URL}/api/notes`, payload)
             console.log(data);
             setAllNotes([data.note, ...notes])
             setResponse(data.message)

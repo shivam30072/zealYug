@@ -6,6 +6,8 @@ import NoteForm from './components/NoteForm'
 import AllNotes from './components/AllNotes'
 
 function App() {
+  const BASE_URL="https://note-taking-app-m8r0.onrender.com"
+
   const [notes, setAllNotes] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [noteId, setNoteId] = useState();
@@ -22,7 +24,7 @@ function App() {
     if (id) {
       try {        
         const { data } = await axios.delete(
-          `/api/notes/${id}`,
+          `${BASE_URL}/api/notes/${id}`,
         );
         const updatedNotes = notes.filter((t) => t._id !== id);
         setAllNotes(updatedNotes);
@@ -39,7 +41,7 @@ function App() {
   useEffect(() => {
     async function fetcAllNotes() {
       try {      
-        const response = await axios.get(`/api/notes`,);
+        const response = await axios.get(`${BASE_URL}/api/notes`,);
         const data = response.data?.allNotes;
         setAllNotes(data);
         setIsLoading(false);
@@ -63,6 +65,7 @@ function App() {
     setNoteId={setNoteId}
     setNoteDesc={setNoteDesc}
     setNoteTitle={setNoteTitle}
+    BASE_URL={BASE_URL}
     />
     {isLoading === true ?
      <div>loading...</div> : 
